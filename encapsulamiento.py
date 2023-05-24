@@ -35,7 +35,3 @@ def _encapsulamiento(productos, paquete, solucion, i, indices_usados):
     
     return _encapsulamiento(productos, paquete, solucion, i+1, indices_usados)
 
-T = [0.4, 0.8, 0.5, 0.1, 0.7, 0.6, 0.1, 0.4, 0.2, 0.2]
-
-print(encapsulamiento(T))
-
