@@ -17,7 +17,7 @@ def empaquetamiento(T, index, envase_actual, soluciones, indices_usados):
             indices_usados.pop()
         elif i == len(T) - 1:
             soluciones.append(envase_actual[:])
-
+            empaquetamiento(T, 0, [], soluciones, indices_usados)
     # Empiezo denuevo con otro envase vacio
     return empaquetamiento(T, 0, [], soluciones, indices_usados)
 
