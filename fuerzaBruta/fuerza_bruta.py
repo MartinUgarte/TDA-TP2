@@ -6,18 +6,10 @@ def con_alguno_suma(nro, lista):
             return True
     return False
 
-
-def empaquetamiento_fb(T):
-    start_time = time.time()
-    soluciones = []
+def armar_paquetes(t_aux, soluciones):
     soluciones_parciales = []
     envase_actual = []
-    
-    for i in range(len(T)):
-        soluciones_parciales = []
-        envase_actual = []
-        t_aux = T[i:] + T[:i]
-        while t_aux:
+    while t_aux:
             envase_actual.append(t_aux.pop(0))
 
             if sum(envase_actual) > 1:
@@ -37,8 +29,37 @@ def empaquetamiento_fb(T):
             if len(soluciones_parciales) >= len(soluciones) and len(soluciones) != 0:
                 break
 
+    return soluciones_parciales
+
+def empaquetamiento_fb(T):
+    start_time = time.time()
+    soluciones = []
+    
+    T = sorted(T, reverse=True)
+
+    for i in range(len(T)):
+
+        t_aux = T[i:] + T[:i]
+
+        soluciones_parciales = armar_paquetes(t_aux, soluciones)
+       
         if len(soluciones_parciales) < len(soluciones) or len(soluciones) == 0:
             soluciones = soluciones_parciales[:]
+    
+    for i in range(len(T)):
+        t_aux = T[i:] + T[:i]
+        elem = t_aux.pop(i)
+
+        soluciones_parciales = armar_paquetes(t_aux, soluciones)
+       
+        if len(soluciones_parciales) < len(soluciones) or len(soluciones) == 0:
+            soluciones = soluciones_parciales[:]
+        
+        for i in range(len(soluciones)):
+            if sum(soluciones[i] )< 1 and sum(soluciones[i]) + elem <= 1:
+                soluciones[i].append(elem)
+                break
+    
 
     end_time = time.time()
     return soluciones, end_time - start_time
