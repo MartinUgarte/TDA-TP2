@@ -1,4 +1,4 @@
-def empaquetamiento(T, index, envase_actual, soluciones, indices_usados):
+def _empaquetamiento(T, index, envase_actual, soluciones, indices_usados):
     if sum(envase_actual) > 1:
         envase_actual.pop()
         indices_usados.pop()
@@ -11,12 +11,8 @@ def empaquetamiento(T, index, envase_actual, soluciones, indices_usados):
         if i in indices_usados: continue
         envase_actual.append(T[i])
         indices_usados.append(i)
-        
-        if empaquetamiento(T, index + 1, envase_actual, soluciones, indices_usados):
-            soluciones.append(envase_actual[:])
-            envase_actual = []
 
-        if sum(envase_actual) < 1 and index == len(T) - 1:
+        if sum(envase_actual) < 1 and index == len(T) - 1  :
             soluciones.append(envase_actual[:])
             envase_actual = []
 
@@ -24,6 +20,23 @@ def empaquetamiento(T, index, envase_actual, soluciones, indices_usados):
             if envase_actual:
                 envase_actual.pop()
                 indices_usados.pop()
-            empaquetamiento(T, 0, envase_actual, soluciones, indices_usados)
+            _empaquetamiento(T, 0, envase_actual, soluciones, indices_usados)
+        
+        if _empaquetamiento(T, index + 1, envase_actual, soluciones, indices_usados):
+            soluciones.append(envase_actual[:])
+            envase_actual = []
+
+        
         
     return False
+
+def empaquetamiento(T):
+    soluciones = []
+    envase_actual = []
+    indices_usados = []
+    _empaquetamiento(T, 0, envase_actual, soluciones, indices_usados)
+    return soluciones
+
+T = [0.7, 0.6, 0.3]
+
+print(empaquetamiento(T))

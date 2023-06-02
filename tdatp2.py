@@ -1,5 +1,5 @@
 import argparse
-from empaquetamiento import empaquetamiento
+from fuerza_bruta import empaquetamiento_fb
 
 def leer_archivo(filename):
     arreglo = []
@@ -13,7 +13,7 @@ def leer_archivo(filename):
 
 def obtener_solucion(arreglo, modo):
     if modo == 'E':
-        return 'Solución Exacta: ', empaquetamiento(arreglo)
+        return 'Solución Exacta: ', empaquetamiento_fb(arreglo)
     if modo == 'A':
         return 'Solución Aproximada: ', []
     if modo == 'A2':
