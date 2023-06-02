@@ -1,5 +1,5 @@
 import argparse
-from fuerza_bruta import empaquetamiento_fb
+from fuerzaBruta.fuerza_bruta import empaquetamiento_fb
 
 def leer_archivo(filename):
     arreglo = []
