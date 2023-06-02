@@ -27,9 +27,3 @@ def empaquetamiento(T, index, envase_actual, soluciones, indices_usados):
             empaquetamiento(T, 0, envase_actual, soluciones, indices_usados)
         
     return False
-
-soluciones = []
-#T = [0.4, 0.8, 0.5, 0.1, 0.7, 0.6, 0.1, 0.4, 0.2, 0.2]
-T = [0.5, 0.4, 0.6]
-empaquetamiento(T, 0, [], soluciones, [])
-print(soluciones)
