@@ -24,11 +24,13 @@ def main():
     parser.add_argument('modo', choices=['E', 'A', 'A2'], help='Tipo de solución')
     parser.add_argument('archivo', type=argparse.FileType('r'), help='Archivo de datos')
     args = parser.parse_args()
-
-    arreglo = leer_archivo(args.archivo.name)
-    texto, solucion = obtener_solucion(arreglo, args.modo)
-    envases, tiempo = solucion
-    print(f'{texto}#{len(envases)}')
-    print(tiempo)
+    
+    archivos = ['../datasets/env3.txt', '../datasets/env10.txt', '../datasets/env10b.txt', '../datasets/env10c.txt', '../datasets/env20.txt', '../datasets/env40.txt', '../datasets/env60.txt']
+    for archivo in archivos:
+        arreglo = leer_archivo(archivo)
+        texto, solucion = obtener_solucion(arreglo, args.modo)
+        envases, tiempo = solucion
+        print(f'{archivo}: {texto}#{len(envases)}')
+        print(tiempo)
 
 main()
