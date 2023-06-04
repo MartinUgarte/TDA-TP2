@@ -10,7 +10,7 @@ Este algoritmo sirve como una aproximación para resolver el problema de empaque
 
 import time
 
-def empaquetamiento_aproximado(T):
+def empaquetamiento_aproximado_curso(T):
     start_time = time.time()
     solucion = []
     if len(T) == 0: return solucion, start_time
@@ -32,6 +32,3 @@ def empaquetamiento_aproximado(T):
     end_time = time.time()
 
     return solucion, end_time - start_time
-
-T = [0.9, 0.4, 0.8]
-print(empaquetamiento_aproximado(T))

@@ -1,4 +1,5 @@
 import unittest
+
 from fuerza_bruta import empaquetamiento_fb
 
 class TestEncapsulamientoBacktracking(unittest.TestCase):
