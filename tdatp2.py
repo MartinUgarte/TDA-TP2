@@ -1,8 +1,8 @@
 import argparse
-from algoritmos.solucion_optima import empaquetamiento_optimo
-from algoritmos.aproximacion_curso import empaquetamiento_aproximado_curso
-from algoritmos.aproximacion_grupo import empaquetamiento_aproximado_grupo
-from archivos import leer_archivo
+from solucion_optima.solucion_optima import empaquetamiento_optimo
+from aproximacion_curso.aproximacion_curso import empaquetamiento_aproximado_curso
+from aproximacion_grupo.aproximacion_grupo import empaquetamiento_aproximado_grupo
+from leer_archivo import leer_archivo
 
 def obtener_solucion(arreglo, modo):
     if modo == 'E':

@@ -1,5 +1,5 @@
 import time
-from algoritmos.aproximacion_grupo import empaquetamiento_aproximado_grupo
+from aproximacion_grupo.aproximacion_grupo import empaquetamiento_aproximado_grupo
 
 def copiar_lista(lista):
     nueva_lista = []
