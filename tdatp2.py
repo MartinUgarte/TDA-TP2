@@ -20,6 +20,5 @@ def main():
     arreglo, _ = leer_archivo(args.archivo.name)
     texto, solucion = obtener_solucion(arreglo, args.modo)
     print(f"{texto}{len(solucion[0])} {solucion[1]}")
-    
 
 main()

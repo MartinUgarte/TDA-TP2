@@ -11,10 +11,7 @@ def _empaquetamiento_optimo(T, solucion_mejor, solucion_parcial, i):
     if i == len(T) and len(solucion_parcial) < len(solucion_mejor):
         solucion_mejor = copiar_lista(solucion_parcial)
     
-    if i == len(T):
-        return solucion_mejor
-    
-    if len(solucion_parcial) > len(solucion_mejor):
+    if i == len(T) or len(solucion_parcial) > len(solucion_mejor):
         return solucion_mejor
     
     for envase in solucion_parcial:
@@ -31,6 +28,7 @@ def _empaquetamiento_optimo(T, solucion_mejor, solucion_parcial, i):
 
     nueva_solucion = copiar_lista(solucion_parcial)
     nueva_solucion.append([T[i]])
+
     return _empaquetamiento_optimo(T, solucion_mejor, nueva_solucion, i+1)
 
 def empaquetamiento_optimo(T):
@@ -43,5 +41,4 @@ def empaquetamiento_optimo(T):
     solucion_mejor = _empaquetamiento_optimo(T, solucion_cota, [[T[0]]], 1)
 
     end_time = time.time()
-
     return solucion_mejor, end_time - start_time
