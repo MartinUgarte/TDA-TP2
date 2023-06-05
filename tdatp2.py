@@ -1,14 +1,12 @@
 import argparse
-from algoritmos.fuerza_bruta import empaquetamiento_fb
+from algoritmos.solucion_optima import empaquetamiento_optimo
 from algoritmos.aproximacion_curso import empaquetamiento_aproximado_curso
 from algoritmos.aproximacion_grupo import empaquetamiento_aproximado_grupo
 from archivos import leer_archivo
 
-
-
 def obtener_solucion(arreglo, modo):
     if modo == 'E':
-        return 'Solución Exacta: ', empaquetamiento_fb(arreglo)
+        return 'Solución Exacta: ', empaquetamiento_optimo(arreglo)
     if modo == 'A':
         return 'Solución Aproximada: ', empaquetamiento_aproximado_curso(arreglo)
     if modo == 'A2':

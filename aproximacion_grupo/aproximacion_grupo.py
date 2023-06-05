@@ -36,11 +36,12 @@ def empaquetamiento_aproximado_grupo(T):
     solucion_mejor = []
     if len(T) == 0:
         return T, start_time
-    # T = sorted(T, reverse=True)
+    
     for i in range(len(T)):
         t_aux = T[i:] + T[:i]
         solucion_aux = armar_paquetes(t_aux, solucion_mejor)
         if len(solucion_aux) < len(solucion_mejor) or len(solucion_mejor) == 0:
             solucion_mejor = solucion_aux[:]
+            
     end_time = time.time()
     return solucion_mejor, end_time - start_time
