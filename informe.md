@@ -19,6 +19,8 @@ $h$ = largo de la solución parcial en la recursividad del algoritmo de backtrac
 
 > Demostrar que el problema de empaquetamiento es NP-Completo.
 
+Para demostrar que el problema de empaquetamiento es NP-Completo, debemos buscar otro problema que sea NP-Completo y tratar de reducirlo a este. En nuestro caso nos basamos en el problema Vertex Cover, el cual consiste en encontrar la mínima cobertura de vértices $m$ en un grafo dado, de manera que cada arista del grafo es incidente a al menos un vértice del conjunto. En nuestro caso, buscamos encarar el problema desde el lado de la decisión, respondiendo a la siguiente pregunta: ¿existe una cantidad mínima m de envases tal que se puedan empaquetar todos los elementos de $T$ sin que se exceda el limite de su capacidad?
+
 Para reducir Vertex Cover al problema de empaquetamiento, tomamos que cada vértice del gráfico original representa un posible paquete, y cada arista un elemento de ese paquete. Para que las aristas puedan ser consideradas un elemento del paquete, debe asignarseles un peso, y este debe ser igual a 1 que es la restricción de valor de cada paquete. De esta forma, se puede puede formar un arreglo $T$ con todas las aristas, y resolver el problema con el algoritmo de empaquetamiento.
 
 Cada envase obtenido representa uno de los vértices de la solución. Para encontrar los vértices, hace falta recorrer el grafo pesado y determinar qué vértice se corresponde con dicho paquete. Los vértices solución pueden tener aristas en común pero las aristas se incluyen en el arreglo T de forma única, lo cual hay que tener en cuenta al buscar el vértice solución. Si el vértice es solución, pero no coincide con el paquete por $i$ aristas, eso significa que hay $i$ vertices solución que comparten una arista con el vértice.
@@ -66,6 +68,7 @@ Sea $I$ una instancia cualquiera del problema de empaquetamiento, y $z(I)$ una s
 Se define $\frac{A(I)}{z(I)}\leq r(A)$ para todas las instancias posibles. Para calcular la cota $r(A)$, se necesita demostrar que esta ecuación siempre se cumple.
 
 Por un lado
+
 $$
 \begin{gather*}
 \sum a_i\leq z(I)
@@ -94,13 +97,25 @@ Finalmente, relacionando estas ecuaciones
 
 $$
 \begin{gather*}
-\frac{A(I) -1}{2}<\sum a_i\leq z(I) \\\\
+\frac{A(I) -1}{2}<\sum a_i\leq z(I)
+\end{gather*}
+$$
 
-\frac{A(I) -1}{2}\leq z(I) \\\\
+$$
+\begin{gather*}
+\frac{A(I) -1}{2}\leq z(I)
+\end{gather*}
+$$
 
-A(I)\leq 2\cdot Z(I) \\\\
+$$
+\begin{gather*}
+A(I)\leq 2\cdot Z(I)
+\end{gather*}
+$$
 
-\frac{A(I)}{z(I)}\leq 2\\
+$$
+\begin{gather*}
+\frac{A(I)}{z(I)}\leq 2
 \end{gather*}
 $$
 
