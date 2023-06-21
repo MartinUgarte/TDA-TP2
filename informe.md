@@ -19,37 +19,25 @@ $h$ = largo de la solución parcial en la recursividad del algoritmo de backtrac
 
 > Demostrar que el problema de empaquetamiento es NP-Completo.
 
-Para demostrar que el problema de empaquetamiento es NP-Completo, debemos buscar otro problema que sea NP-Completo y tratar de reducirlo a este. En nuestro caso nos basamos en el problema Vertex Cover, el cual consiste en encontrar la mínima cobertura de vértices $m$ en un grafo dado, de manera que cada arista del grafo es incidente a al menos un vértice del conjunto. En nuestro caso, buscamos encarar el problema desde el lado de la decisión, respondiendo a la siguiente pregunta: ¿existe una cantidad mínima m de envases tal que se puedan empaquetar todos los elementos de $T$ sin que se exceda el limite de su capacidad?
+Para que un algoritmo sea NP-Completo, tiene que poder reducirse otro algoritmo NP-Completo a este.
 
-Para reducir Vertex Cover al problema de empaquetamiento, tomamos que cada vértice del gráfico original representa un posible paquete, y cada arista un elemento de ese paquete. Para que las aristas puedan ser consideradas un elemento del paquete, debe asignarseles un peso, y este debe ser igual a 1 que es la restricción de valor de cada paquete. De esta forma, se puede puede formar un arreglo $T$ con todas las aristas, y resolver el problema con el algoritmo de empaquetamiento.
+El `Partition Problem` consiste en determinar si es posible dividir un conjunto $S$ dado de números en dos subconjuntos disjuntos $S_1$ y $S_2$, de manera que la suma de los elementos en ambos subconuntos sea la misma, $\sum S_1 == \sum S_2$. Este problema es NP-Completo, y es el que vamos a reducir a nuestro problema de `Empaquetamiento`. 
 
-Cada envase obtenido representa uno de los vértices de la solución. Para encontrar los vértices, hace falta recorrer el grafo pesado y determinar qué vértice se corresponde con dicho paquete. Los vértices solución pueden tener aristas en común pero las aristas se incluyen en el arreglo T de forma única, lo cual hay que tener en cuenta al buscar el vértice solución. Si el vértice es solución, pero no coincide con el paquete por $i$ aristas, eso significa que hay $i$ vertices solución que comparten una arista con el vértice.
+Para lograrlo, se puede dividir todos los elementos de tal forma que queden ajustados en el intervalo $(0,1]$.
 
-En el siguiente ejemplo, tenemos un conjunto $T = [0.8, 0.2, 0.4, 0.6]$, donde la solución óptima es $[[0.2, 0.8], [0.4, 0.6]]$. Tras resolver el problema de Vertex Cover, se puede observar que se necesitan dos vértices para cubrir todas las aristas, que coincide con la cantidad mínima de envases necesarias para empaquetar todos los elementos.
+Los bins en empaquetamiento son de capacidad máxima $1$, entonces debemos reescalar los valores de $S$ tal que cada $s_i\in (0,1]$, y esto lo conseguimos dividiendo los valores por la $\sum S$. Hacer solo la división haría que la suma de los nuevos valores sea 1 y guardaría todos los elementos en un solo envase, pero queremos ver si entran en dos de ellos cuya suma sea la misma. Por esto multiplicamos cada valor por 2, asi la suma de todos los valores sería 2. Esto significa que si pudimos meter todo (la mitad en un bin y la otra en otro) estaría dando $1+1=2$. Como condición entonces se debe cumplir que todos los elementos queden entre 0 y 1. De no serlo, entonces el problema de decisión dará False, ya que un elemento estaría ocupando más de la mitad de la suma de todos los elemetos y no habría solución.
 
-![](/graficos/grafo.png)
+$s_i=\frac{2c_i}{\sum_{j=1}^n c_j}$ donde $s_i\in(0,1]$ para $i=1,...,n$.
 
-El procedimiento sería el siguiente:
-
-1. Asignarle pesos a las aristas, con la restricción de que $\sum aristas_v = 1$. Si $\sum aristas_v$ < $1$ se corre el riesgo que el algoritmo de backtracking encuentre una solución con la cantidad correcta de envases, pero las aristas no se correspondan a vértices del grafo.
-
-2. Armar un arreglo $T$ con los pesos de cada arista (puede hacerse al mismo tiempo que el paso $1$).
-
-3. Aplicar el algoritmo de backtracking, y pasarle el arreglo T como entrada.
-
-4. Para recuperar los vértices a partir de los envases hay que tener en cuenta las siguientes situaciones:
-   - El valor de la arista $a_k$ puede ser igual a la suma de los valores de las aristas $a_i$ y $a_j$.
-   - Los vértices solución pueden compartir aristas entre sí. Si un envase coincide con un vértice menos $i$ elementos, este vértice es solución si existen $i$ vértices, cada uno con uno de los elementos faltantes.  
-
-Además por ser NP, el problema puede validarse en tiempo polinomial. Simplemente bastaría con recorrer el arreglo de envases y verificar que la suma de sus elementos no exceda $1$ y que estén presentes todos los elementos del arreglo original.
+Un problema es NP, si su solución se puede validar en tiempo polinomial. En este caso, validar que la solución es correcta podría hacerse creando una copia de $T$, y recorrer la solución una vez, y por cada elemento visto quitarlo del arreglo copia, si el elemento no se encuentra en la copia la solución no es válida. El arreglo copia debe quedar vacio, y todos los valores de la solución deben haber sido vistos, de no ser asi, la solucion es invalida. Si al vaciar el arreglo T, quedan elementos sin ver, la solución es inválida. Por supuesto al iterar cada envase, también hay verificar que la suma de los elementos no exceda 1 en cada uno de ellos.
 
 ## Ejercicio 2
 
 > Programar un algoritmo por Backtracking/Fuerza Bruta que busque la solución exacta del problema. Indicar la complejidad del mismo. Realizar mediciones del tiempo de ejecución, y realizar gráficos en función de n. 
 
-Por un lado, nuestro algoritmo comienza utilizando una solución de un algoritmo aproximado como cota, cuya complejidad es $O(\space n^2\cdot(n+h)\space)$ (explicada en el punto $4$). Luego, pensando a las llamadas recursivas como un árbol el cual comienza teniendo como raíz un solo envase que contiene el primer elemento de $T$, cada nodo se divide en $h + 1$ ramas, probando poner el elemento del nivel recursivo correspondiente en cada envase de la solución parcial, y demás probar el caso de agregar a la solución parcial un envase nuevo que únicamente contiene ese elemento. Por ende sería $O(\space(h+1)^n\space)$
+Por un lado, nuestro algoritmo comienza utilizando una solución de un algoritmo aproximado como cota, cuya complejidad es $O(\space n^3\space)$ (explicada en el punto $4$). Luego, pensando a las llamadas recursivas como un árbol el cual comienza teniendo como raíz un solo envase que contiene el primer elemento de $T$, cada nodo se divide en $h + 1$ ramas, probando poner el elemento del nivel recursivo correspondiente en cada envase de la solución parcial, y demás probar el caso de agregar a la solución parcial un envase nuevo que únicamente contiene ese elemento. Por ende sería $O((h+1)^n)$.
 
-La complejidad, teniendo en cuenta que las demás operaciones son de tiempo constante, quedará determinada por $O(\space n^2 \cdot (n+h)\space) + O(\space(h+1)^n\space)$, tomando como mayor peso el exponente $n$, entonces la complejidad es $O(\space(h+1)^n\space)$.
+Hasta el momento tenemos $O(n^3 + (h+1)^n)$. Sin embargo, $h$ no es parámetro del problema, asi que no puede ser tomado en cuenta para formular la complejidad del mismo. Esta, teniendo en cuenta que las demás operaciones son de tiempo constante, quedará determinada por $O(\space n^3\space)$.
 
 A continuación se muestra un gráfico de los tiempos de ejecución (en segundos) en función del tamaño de la entrada. Por cuestiones de tiempo y recursos, se realizaron mediciones con $len(T)\in(5, 10, 15, 20)$ con slices de un mismo arreglo.
 
@@ -130,7 +118,9 @@ Para corroborar esta relación, realizamos un gráfico que muestra claramente la
 
 > [Opcional] Implementar alguna otra aproximación (u algoritmo greedy) que les parezca de interés. Comparar sus resultados con los dados por la aproximación del punto 3. Indicar y justificar su complejidad.
 
-La función itera todos los elementos del arreglo original en $O(n)$, luego forma arreglos auxiliares y los itera en $O(n + k)$, donde $k$ representa la cantidad de elementos que son reinsertados en el arreglo auxiliar. Cada reinserción aumenta la cantidad de iteraciones restantes. En cada iteración del arreglo auxiliar hace uso de una funcion auxiliar, cuya complejidad es $O(n-1)$. De esta forma, la complejidad total de esta aproximación es $O(\space n^2 \cdot (n+k)\space)$
+La función itera todos los elementos del arreglo original en $O(n)$, luego forma arreglos auxiliares y los itera $(n + k)$ veces, donde $k$ representa la cantidad de elementos que son reinsertados en el arreglo auxiliar. Cada reinserción aumenta la cantidad de iteraciones restantes. En cada iteración del arreglo auxiliar hace uso de una funcion auxiliar, cuya complejidad es $O(n-1)$. 
+
+De esta forma, quedaría $O(n^2\cdot (n+k))$. En realidad la complejidad total de esta aproximación es $O(\space n^2 \cdot n\space)=O(n^3)$. Por no ser entrada del algoritmo y siendo $k<n$ (como mucho $k=n-1$) el parámetro $k$ no forma parte de la complejidad.
 
 Para finalizar, se muestran gráficos adicionales para terminar de comparar los tres algoritmos desarrollados y ver como se comportan las aproximaciones contra la solución óptima.
 
