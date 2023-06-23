@@ -120,7 +120,7 @@ Para corroborar esta relación, realizamos un gráfico que muestra claramente la
 
 La función itera todos los elementos del arreglo original en $O(n)$, luego forma arreglos auxiliares y los itera $(n + k)$ veces, donde $k$ representa la cantidad de elementos que son reinsertados en el arreglo auxiliar. Cada reinserción aumenta la cantidad de iteraciones restantes. En cada iteración del arreglo auxiliar hace uso de una funcion auxiliar, cuya complejidad es $O(n-1)$. 
 
-De esta forma, quedaría $O(n^2\cdot (n+k))$. En realidad la complejidad total de esta aproximación es $O(\space n^2 \cdot n\space)=O(n^3)$. Por no ser entrada del algoritmo y siendo $k<n$ (como mucho $k=n-1$) el parámetro $k$ no forma parte de la complejidad.
+De esta forma, quedaría $O(n^2\cdot (n+k))$. En realidad la complejidad total de esta aproximación es $O(\space n^2 \cdot n\space)=O(n^3)$. Por no ser entrada del algoritmo y siendo $(\space k<n\space)$ (como mucho $k=n-1$) el parámetro $k$ no forma parte de la complejidad.
 
 Para finalizar, se muestran gráficos adicionales para terminar de comparar los tres algoritmos desarrollados y ver como se comportan las aproximaciones contra la solución óptima.
 
