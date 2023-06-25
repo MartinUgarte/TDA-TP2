@@ -122,7 +122,7 @@ La función itera todos los elementos del arreglo original en $O(n)$, luego form
 
 De esta forma, quedaría $O(n^2\cdot (n+k))$. En realidad la complejidad total de esta aproximación es $O(\space n^2 \cdot n\space)=O(n^3)$.
 
-Por no ser entrada del algoritmo y siendo $k<n$ (como mucho $k=n-1$) el parámetro $k$ no forma parte de la complejidad.
+Por no ser entrada del algoritmo y siendo $k$ menor que $n$ (como mucho $k=n-1$) el parámetro $k$ no forma parte de la complejidad.
 
 Para finalizar, se muestran gráficos adicionales para terminar de comparar los tres algoritmos desarrollados y ver como se comportan las aproximaciones contra la solución óptima.
 
